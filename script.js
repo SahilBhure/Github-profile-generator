@@ -98,22 +98,32 @@ showDetailsButton.addEventListener('click',() =>{
                              }
     
     async function showReposInfo(userName){
-      const res = await fetch(`https://api.github.com/users/${userName}/repos`)
-      const projects = await res.json(); 
-      for(let i = 0;i < projects.length;i++){
-      repoInfoDiv.innerHTML +=`<div class="card_repo">
-                                <div class="card-body-repo">
-                                    <div class="card-title">${projects[i].name}</div>
-                                    <div class="language">${projects[i].language}</div>
-                                    <div class="card-text">
-                                    <button>
-                                        <a href = ${projects[i].html_url}>
-                                        Do check it out!
-                                        </a>
-                                    </button>
+
+        //  Check if there is a card_repo already exist
+        let card_repo = document.getElementsByClassName("card_repo");
+
+        if(card_repo.length){ // This will skip generating, if there is already card_repo exist
+            return;
+        } 
+
+            const res = await fetch(`https://api.github.com/users/${userName}/repos`)
+            const projects = await res.json(); 
+            for(let i = 0;i < projects.length;i++){
+            repoInfoDiv.innerHTML +=`<div class="card_repo">
+                                    <div class="card-body-repo">
+                                        <div class="card-title">${projects[i].name}</div>
+                                        <div class="language">${projects[i].language}</div>
+                                        <div class="card-text">
+                                        <button>
+                                            <a href = ${projects[i].html_url}>
+                                            Do check it out!
+                                            </a>
+                                        </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>`
+                                </div>`
+
+    
     }}
 
 
